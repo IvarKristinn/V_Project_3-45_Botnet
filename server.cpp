@@ -18,6 +18,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include <algorithm>
+#include <fcntl.h>
 #include <map>
 #include <vector>
 
@@ -63,11 +64,14 @@ int open_socket(int portno)
 
    // Create socket for connection
 
-   if((sock = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, 0)) < 0)
+   if((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
    {
       perror("Failed to open socket");
       return(-1);
    }
+#ifdef APPLE
+   fcntl(sock, F_SETFL,O_NONBLOCK);
+#endif
 
    // Turn on SO_REUSEADDR to allow socket to be quickly reused after 
    // program exit.
@@ -123,7 +127,7 @@ void closeClient(int clientSocket, fd_set *openSockets, int *maxfds)
 
 // Process command from client on the server
 
-int clientCommand(int clientSocket, fd_set *openSockets, int *maxfds, 
+void clientCommand(int clientSocket, fd_set *openSockets, int *maxfds, 
                   char *buffer) 
 {
   std::vector<std::string> tokens;
@@ -196,8 +200,6 @@ int clientCommand(int clientSocket, fd_set *openSockets, int *maxfds,
   {
       std::cout << "Unknown command from client:" << buffer << std::endl;
   }
-
-     
 }
 
 int main(int argc, char* argv[])
@@ -222,7 +224,7 @@ int main(int argc, char* argv[])
     // Setup socket for server to listen to
 
     listenSock = open_socket(atoi(argv[1])); 
-    printf("Listening on port: %d\n", listenSock);
+    printf("Listening on port: %s\n", argv[1]);    
 
     if(listen(listenSock, BACKLOG) < 0)
     {

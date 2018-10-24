@@ -68,11 +68,12 @@ int main(int argc, char* argv[])
         exit(0);
    }
 
+   memset(&hints,   0, sizeof(hints));
+
    hints.ai_family   = AF_INET;            // IPv4 only addresses
    hints.ai_socktype = SOCK_STREAM;
    hints.ai_flags    = AI_PASSIVE;
 
-   memset(&hints,   0, sizeof(hints));
 
    if(getaddrinfo(argv[1], argv[2], &hints, &svr) != 0)
    {
@@ -87,7 +88,7 @@ int main(int argc, char* argv[])
 
    if(setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &set, sizeof(set)) < 0)
    {
-       printf("Failed to set SO_REUSEADDR for port %d\n", argv[2]);
+       printf("Failed to set SO_REUSEADDR for port %s\n", argv[2]);
        perror("setsockopt failed: ");
    }
 
