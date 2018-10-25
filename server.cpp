@@ -27,7 +27,10 @@
 #include <thread>
 #include <map>
 
+#define GROUP_ID "V_Group_45"
 #define BACKLOG  5          // Allowed length of queue of waiting connections
+
+using namespace std;
 
 // Simple class for handling connections from clients.
 //
@@ -100,6 +103,12 @@ int open_socket(int portno)
    }
 }
 
+// gets the serverid 
+string getServerId() {
+    string sendId = GROUP_ID;
+    return sendId;
+}
+
 // Close a client's connection, remove it from the client list, and
 // tidy up select sockets afterwards.
 
@@ -158,13 +167,21 @@ void clientCommand(int clientSocket, fd_set *openSockets, int *maxfds,
 
      for(auto const& names : clients)
      {
-        msg += names.second->name + ",";
+        msg += names.second->name + ", ";
 
      }
      // Reducing the msg length by 1 loses the excess "," - which
      // granted is totally cheating.
      send(clientSocket, msg.c_str(), msg.length()-1, 0);
 
+  }
+  //Sends server id
+  else if(tokens[0].compare("ID") == 0) {
+      string msg;
+      cout << "ID" << endl;
+      msg += getServerId(); 
+
+      send(clientSocket, msg.c_str(), msg.length(), 0);
   }
   // This is slightly fragile, since it's relying on the order
   // of evaluation of the if statement.
@@ -198,7 +215,7 @@ void clientCommand(int clientSocket, fd_set *openSockets, int *maxfds,
   }
   else
   {
-      std::cout << "Unknown command from client:" << buffer << std::endl;
+      std::cout << "Unknown command from client, use: CONNECT, LEAVE, MSG <username>, MSG ALL" << buffer << std::endl;
   }
 }
 
