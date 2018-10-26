@@ -1,10 +1,3 @@
-//
-// Simple chat server for TSAM-409
-//
-// Command line: ./chat_server 4000 
-//
-// Author: Jacky Mallett (jacky@ru.is)
-//
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
@@ -21,13 +14,12 @@
 #include <fcntl.h>
 #include <map>
 #include <vector>
-
 #include <iostream>
 #include <sstream>
 #include <thread>
 #include <map>
 
-#define GROUP_ID "V_Group_45"
+#define SERVER_ID "V_Group_45"
 #define BACKLOG  5          // Allowed length of queue of waiting connections
 
 using namespace std;
@@ -105,7 +97,7 @@ int open_socket(int portno)
 
 // gets the serverid 
 string getServerId() {
-    string sendId = GROUP_ID;
+    string sendId = SERVER_ID;
     return sendId;
 }
 
@@ -214,7 +206,7 @@ void clientCommand(int clientSocket, fd_set *openSockets, int *maxfds,
       }
   }
   else
-  {
+  { //vantar meira hérna inn
       std::cout << "Unknown command from client, use: CONNECT, LEAVE, MSG <username>, MSG ALL" << buffer << std::endl;
   }
 }
@@ -232,9 +224,18 @@ int main(int argc, char* argv[])
     socklen_t clientLen;
     char buffer[1025];              // buffer for reading from clients
 
+//./tsamvgroup1 8888 8889
+// 8888->TCP, 8889 ->UDP(Should only send LISTSERVERS)
+    /*
     if(argc != 2)
     {
         printf("Usage: chat_server <ip port>\n");
+        exit(0);
+    }
+    */
+      if(argc < 4)
+    {
+        printf("Usage: Server <TCP port> <UDP port>\n");
         exit(0);
     }
 
