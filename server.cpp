@@ -18,7 +18,6 @@
 #include <sstream>
 #include <thread>
 #include <map>
-#include <sys/ioctl.h>
 
 #define SERVER_ID "V_Group_45"
 #define BACKLOG  5          // Allowed length of queue of waiting connections
@@ -46,15 +45,7 @@ class Client
 // Quite often a simple array can be used as a lookup table, 
 // (indexed on socket no.) sacrificing memory for speed.
 
-std::map<int, Client*> Servers; // Lookup table for per Client information
-
-//ATH HART COPYPASTE
-int set_nonblocking(int sock)
-{
-    int opt = 1;
-    ioctl(sock, FIONBIO, &opt);
-    return sock;
-} 
+std::map<int, Client*> Servers; // Lookup table for per Client information 
 
 // Open socket for specified port.
 //
