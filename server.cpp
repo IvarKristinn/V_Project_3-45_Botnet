@@ -61,7 +61,7 @@ int open_TcpSock(int portno)
 
    if((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
    {
-      perror("Failed to open socket");
+      perror("Failed to open TCPsocket");
       return(-1);
    }
 #ifdef APPLE
@@ -95,7 +95,43 @@ int open_TcpSock(int portno)
    }
 }
 
-//int open_UdpSock
+int open_UdpSock(int portno) {
+    struct sockaddr_in sk_addr; // address settings for bind()
+    int sock;                   // socket opened for this port
+    int set = -1;               // for setsockopt
+
+    // Create socket for connection
+    if((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0) {
+        perror("Failed to open UDPsocket");
+        return(-1);
+    }
+
+       // Turn on SO_REUSEADDR to allow socket to be quickly reused after 
+   // program exit.
+
+   if(setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &set, sizeof(set)) < 0)
+   {
+      perror("Failed to set SO_REUSEADDR:");
+   }
+
+   memset(&sk_addr, 0, sizeof(sk_addr));
+
+   sk_addr.sin_family      = AF_INET;
+   sk_addr.sin_addr.s_addr = INADDR_ANY;
+   sk_addr.sin_port        = htons(portno);
+
+   // Bind to socket to listen for connections from clients
+
+   if(bind(sock, (struct sockaddr *)&sk_addr, sizeof(sk_addr)) < 0)
+   {
+      perror("Failed to bind to socket:");
+      return(-1);
+   }
+   else
+   {
+      return(sock);
+   }
+}
 
 // gets the serverid 
 string getServerId() {
@@ -274,6 +310,9 @@ int main(int argc, char* argv[])
         maxfds = listenTcpSock;
     }
 
+    UdpSock = open_UdpSock(atoi(argv[2]));
+    printf("Listening on udp: %s\n", argv[2]); 
+
     finished = false;
 
     while(!finished)
@@ -296,7 +335,6 @@ int main(int argc, char* argv[])
             {
                clientSock = accept(listenTcpSock, (struct sockaddr *)&client,
                                    &clientLen);
-               set_nonblocking(clientSock);
                FD_SET(clientSock, &openSockets);
                maxfds = std::max(maxfds, clientSock);
 
