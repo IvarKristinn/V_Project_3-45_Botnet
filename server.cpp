@@ -32,6 +32,8 @@ class Client
   public:
     int sock;              // socket of client connection
     string name;           // Limit length of name of client's user
+    string ip;
+    int port;
 
     Client(int socket) : sock(socket){} 
 
@@ -243,17 +245,29 @@ void Commands(int clientSocket, fd_set *openSockets, int *maxfds,
           }
       }
   }
+  //Virkar ekki rétt
+  //vantar ip og port uppls
   else if(tokens[0].compare("LISTSERVERS") == 0)
   {
+      cout << "Servers connected" << std::endl;
+      string msg;
 
+     for(auto const& names : Servers)
+     {
+        msg += names.second->name + ",";
+        msg += names.second->ip + ",";
+        msg += names.second->port + ",";
+        msg += ";";
+     }
+     send(clientSocket, msg.c_str(), msg.length(), 0);
   }
   else if(tokens[0].compare("KEEPALIVE") == 0)
   {
-
+      //TODO
   }
   else if(tokens[0].compare("LISTROUTES") == 0)
   {
-
+      //TODO
   }
   //CMD,<TOSERVERID>,<FROMSERVERID>,<command>
   //RSP,<TOSERVERID>,<FORMSERVERID>,<command response>
