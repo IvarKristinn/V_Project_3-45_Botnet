@@ -5,18 +5,18 @@ This README is about our Botnet and with accompanying client.
 The whole system was compiled on Linux Ubuntu.
 
 ## Server commands  
-ID - Server ID
-CONNECT 
-LEAVE
-WHO
-MSG
-MSG ALL
-LISTSERVERS
-KEEPALIVE
-LISTROUTES
-CMD
-TSP
-FETCH
+ID - Server ID  
+CONNECT  
+LEAVE  
+WHO  
+MSG  
+MSG ALL  
+LISTSERVERS  
+KEEPALIVE  
+LISTROUTES  
+CMD  
+TSP  
+FETCH  
 
 ## To build
 ### prebuilds
