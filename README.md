@@ -6,30 +6,30 @@ The whole system was compiled on Linux Ubuntu.
 
 ## Server commands  
 ID - Server ID  
-CONNECT  
-LEAVE  
-WHO  
-MSG  
-MSG ALL  
-LISTSERVERS  
-KEEPALIVE  
-LISTROUTES  
-CMD  
-TSP  
-FETCH  
+CONNECT - To join the chat, you have to connect first.  
+LEAVE - To leave the server.  
+WHO - Lists all the users on the server.  
+MSG <usernmane> - Sends private message to user.  
+MSG ALL - Sends message to all.    
+LISTSERVERS - Provides a list of directly connected servers.  
+KEEPALIVE - 
+LISTROUTES - Provides a list of all servers in the network.  
+CMD,<ToServerID>,<FromServerID>,<command> - Sends a command to another server.  
+RSP,<ToServerID>,<FromServerID>,<command> - Reply to a CMD from another server.     
+FETCH,<no> - Fecthes a hasded string from this server with supplied index.    
 
 ## To build
 ### prebuilds
 xxxxx
 ### Server  
-xxxx  
+g++ tsamvgroup45.cpp -o tsamvgroup45 
 ### Client  
-xxxx
+g++ client.cpp -o client -lpthred
 ## To Run  
 ### Server
-xxxx
+./tsamvgroup45 <ServerPort> <InfoPort> <ClientPort>
 ### Client
-xxxx
+./client <IP> <Port>
 
 
 ## Known Issues
