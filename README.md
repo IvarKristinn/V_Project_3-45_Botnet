@@ -1,7 +1,7 @@
 # README
 # SC-T-409-TSAM
 ### Project 3 - Botnet
-This README is about our Botnet and with accompanying client.  
+This README is about our Botnet server and with accompanying C&C client.  
 The whole system was compiled on Linux Ubuntu.
 
 ## Server commands  
@@ -19,8 +19,6 @@ RSP,ToServerID,FromServerID,command - Reply to a CMD from another server.
 FETCH,no - Fecthes a hasded string from this server with supplied index.    
 
 ## To build
-### prebuilds
-xxxxx
 ### Server  
 g++ tsamvgroup45.cpp -o tsamvgroup45 
 ### Client  
