@@ -9,14 +9,14 @@ ID - Server ID
 CONNECT - To join the chat, you have to connect first.  
 LEAVE - To leave the server.  
 WHO - Lists all the users on the server.  
-MSG <usernmane> - Sends private message to user.  
+MSG usernmane - Sends private message to user.  
 MSG ALL - Sends message to all.    
 LISTSERVERS - Provides a list of directly connected servers.  
 KEEPALIVE - 
 LISTROUTES - Provides a list of all servers in the network.  
-CMD,<ToServerID>,<FromServerID>,<command> - Sends a command to another server.  
-RSP,<ToServerID>,<FromServerID>,<command> - Reply to a CMD from another server.     
-FETCH,<no> - Fecthes a hasded string from this server with supplied index.    
+CMD,ToServerID,FromServerID,command - Sends a command to another server.  
+RSP,ToServerID,FromServerID,command - Reply to a CMD from another server.     
+FETCH,no - Fecthes a hasded string from this server with supplied index.    
 
 ## To build
 ### prebuilds
@@ -27,9 +27,9 @@ g++ tsamvgroup45.cpp -o tsamvgroup45
 g++ client.cpp -o client -lpthred
 ## To Run  
 ### Server
-./tsamvgroup45 <ServerPort> <InfoPort> <ClientPort>  
+./tsamvgroup45 ServerPort InfoPort ClientPort    
 ### Client
-./client <IP> <Port>  
+./client IP Port  
 
 
 ## Known Issues
