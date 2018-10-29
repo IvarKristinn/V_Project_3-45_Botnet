@@ -27,9 +27,9 @@ g++ tsamvgroup45.cpp -o tsamvgroup45
 g++ client.cpp -o client -lpthred
 ## To Run  
 ### Server
-./tsamvgroup45 <ServerPort> <InfoPort> <ClientPort>
+./tsamvgroup45 <ServerPort> <InfoPort> <ClientPort>  
 ### Client
-./client <IP> <Port>
+./client <IP> <Port>  
 
 
 ## Known Issues
