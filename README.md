@@ -12,7 +12,7 @@ WHO - Lists all the users on the server.
 MSG usernmane - Sends private message to user.  
 MSG ALL - Sends message to all.    
 LISTSERVERS - Provides a list of directly connected servers.  
-KEEPALIVE - 
+KEEPALIVE -  
 LISTROUTES - Provides a list of all servers in the network.  
 CMD,ToServerID,FromServerID,command - Sends a command to another server.  
 RSP,ToServerID,FromServerID,command - Reply to a CMD from another server.     
