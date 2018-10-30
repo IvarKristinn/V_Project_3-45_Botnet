@@ -32,7 +32,7 @@ g++ client.cpp -o client -lpthred
 
 ## Known Issues
 KEEPALIVE not implemented, LISTROUTES not implemented, FETCH somewhat implemented,  
-RSP not implemented
+RSP not implemented, Client is also somewhat broken  
 
 ## Team Members - V_Project_3 45
 Ívar Kristinn Hallsson: ivar17@ru.is  
